@@ -9,11 +9,16 @@ namespace AutoDialer
     class Phone
     {
         private string _phoneNumber;
+        private string _companyName;
+        private string _phoneType;
 
 
-        public Phone(string phoneNumber)
+
+        public Phone(string phoneNumber, string companyName, string phoneType)
         {
-            _phoneNumber = phoneNumber;
+            _phoneNumber    =  phoneNumber;
+            _companyName    =  companyName;
+            _phoneType      =  phoneType;
         }
 
         public string Dial(string number)

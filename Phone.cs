@@ -23,7 +23,7 @@ namespace AutoDialer
 
         public string Dial(string number)
         {
-            return number;
+            return _companyName + " is being dialed using" + number;
         }
     }
 }

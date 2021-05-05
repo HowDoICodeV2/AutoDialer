@@ -21,7 +21,7 @@ namespace AutoDialer
             _phoneType      =  phoneType;
         }
 
-        public string Dial(string number)
+        public virtual string Dial(string number)
         {
             return _companyName + " is being dialed using" + number;
         }

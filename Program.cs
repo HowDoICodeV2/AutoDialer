@@ -6,7 +6,7 @@ namespace AutoDialer
     {
 
 
-        static void Main(string[] args)
+       static void Main(string[] args)
         { // empty space is to prevent merge conflicts on the same line
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
@@ -21,10 +21,13 @@ namespace AutoDialer
             phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409", "2");
 
 
-
-
-
-
+            // need explanation for user here
+            for (int i = 0; i < phoneList.Length; i++)
+            { 
+                Print(phoneList[i]);
+                phoneList[i] = null;
+            }
+            
 
 
 
@@ -48,24 +51,11 @@ namespace AutoDialer
 
         }
         // print function
-        public void Print(Phone[] phoneList)
+        public static void Print(Phone phone)
         {
-            for(int i = 0; i < phoneList.Length; i++)
-            {
-                Console.WriteLine(phoneList[i].Dial());
-            }
+                Console.WriteLine(phone.Dial());
         }
 
-
-
-
-
-
-
-
-
-
-        // User input section
 
 
 

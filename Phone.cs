@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoDialer
 {
-    class Phone
+    public class Phone
     {
         private string _phoneNumber;
         private string _companyName;

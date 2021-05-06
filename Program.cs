@@ -3,7 +3,7 @@
 namespace AutoDialer
 {
     class Program
-    { 
+    {
 
 
         static void Main(string[] args)
@@ -17,24 +17,8 @@ namespace AutoDialer
             phoneList[5] = new HomePhone("ErgoSource", "(800) 969-4374", "1");
             phoneList[6] = new CellPhone("Fox Bay Industries", "(800) 874-8527", "2");
             phoneList[7] = new CellPhone("Glare-Guard", "(800) 545-6254", "2");
-            phoneList[8] = new CellPhone("Hazard Comm Specialists","(407)783-6641", "2");
-            phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409","2");
-           
-            
-           
-            
-            
-            
-            
-            
-            
-
-
-
-
-
-
-            
+            phoneList[8] = new CellPhone("Hazard Comm Specialists", "(407)783-6641", "2");
+            phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409", "2");
 
 
 
@@ -46,11 +30,16 @@ namespace AutoDialer
 
 
 
-        }
 
 
-            
-            
+
+
+
+
+
+
+
+
 
 
 
@@ -58,8 +47,25 @@ namespace AutoDialer
 
 
         }
+        // print function
+        public void Print(Phone[] phoneList)
+        {
+            for(int i = 0; i < phoneList.Length; i++)
+            {
+                Console.WriteLine(phoneList[i].Dial());
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         // User input section
-
 
 
 
@@ -94,6 +100,7 @@ namespace AutoDialer
 
     }
 }
+
 
 
 // additional commentary: I would like to give 40 lines for each function, then we remove the empty space after the final merges to main

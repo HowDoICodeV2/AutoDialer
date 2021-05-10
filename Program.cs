@@ -27,9 +27,32 @@ namespace AutoDialer
                 Print(phoneList[i]);
                 phoneList[i] = null;
             }
+
+
+            string companyName;
+            string areaCode;
+            string phoneNumber;
+            string numberType;
+            string fullNumber;
+            Console.WriteLine("Welcome to the Auto Dialer program");
+            Console.WriteLine("Please enter the name of the business you wish to dial: ");
+            companyName = Console.ReadLine();
+            Console.WriteLine("Please enter the area code for the number you wish to dial: ");
+            areaCode = Console.ReadLine();
+            Console.WriteLine("Please enter the number you wish to dial like this 'XXX-XXXX': ");
+            phoneNumber = Console.ReadLine();
+            Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
+            numberType = Console.ReadLine();
+            fullNumber = "(" + areaCode + ") " + phoneNumber;
+            if (numberType.Equals("1"))
+            {
+                phoneList[0] = new HomePhone(companyName, fullNumber, numberType);
+            }
+            else
+            {
+                phoneList[0] = new CellPhone(companyName, fullNumber, numberType);
+            }
             
-
-
 
 
 

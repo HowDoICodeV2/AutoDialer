@@ -3,12 +3,11 @@
 namespace AutoDialer
 {
     class Program
-    { 
+    {
 
 
         static void Main(string[] args)
-        { 
-            //Initial Data
+        { // empty space is to prevent merge conflicts on the same line
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
             phoneList[1] = new CellPhone("Curtis Manufacturing", "(603) 532-4123", "2");
@@ -18,25 +17,18 @@ namespace AutoDialer
             phoneList[5] = new HomePhone("ErgoSource", "(800) 969-4374", "1");
             phoneList[6] = new CellPhone("Fox Bay Industries", "(800) 874-8527", "2");
             phoneList[7] = new CellPhone("Glare-Guard", "(800) 545-6254", "2");
-            phoneList[8] = new CellPhone("Hazard Comm Specialists","(407)783-6641", "2");
-            phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409","2");
-           
-            
-           
-            
-            
-            
-            
-            
-            
+            phoneList[8] = new CellPhone("Hazard Comm Specialists", "(407)783-6641", "2");
+            phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409", "2");
 
 
-
-
-
-
-            
-
+            // need explanation for user here
+            for (int i = 0; i < phoneList.Length; i++)
+            {
+                Print(phoneList[i]);
+                phoneList[i] = null;
+            }
+            //string[] yes = {"CompuTest", "(303) 985-5060", "1"};
+            //InterperetInput(yes);
 
 
 
@@ -45,11 +37,13 @@ namespace AutoDialer
 
 
 
-        }
 
 
-            
-            
+
+
+
+
+
 
 
 
@@ -57,12 +51,29 @@ namespace AutoDialer
 
 
         }
-        // User input section
-
-        //public Phone[] UserInput()
+        // print function
+        public static void Print(Phone phone)
+        {
+                Console.WriteLine(phone.Dial());
+        }
+        //// interperet input
+        //public static string[] InterperetInput(string[] input)
         //{
+        //    string[] detailArray = new string[3];
 
+        //    string companyName = input[0];
+        //    companyName.Trim();
+        //    detailArray[0] = companyName;
+
+        //    string phoneNumber = input[1];
+        //    phoneNumber.Trim();
+        //    if (phoneNumber == "(***) ***-****")
+        //    {
+        //        detailArray[1] = phoneNumber;
+        //    }
+        //    return detailArray;
         //}
+
 
 
 
@@ -96,6 +107,7 @@ namespace AutoDialer
 
     }
 }
+
 
 
 // additional commentary: I would like to give 40 lines for each function, then we remove the empty space after the final merges to main

@@ -4,9 +4,17 @@ namespace AutoDialer
 {
     class Program
     {
+        public enum details
+        {
+            companyName,
+            phoneNumber,
+            phoneType
+        }
+
         private static char[] singleDigitNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static void Main(string[] args)
         { // empty space is to prevent merge conflicts on the same line
+
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
             phoneList[1] = new CellPhone("Curtis Manufacturing", "(603) 532-4123", "2");
@@ -38,7 +46,14 @@ namespace AutoDialer
 
 
 
-            // at some point after user input we need to trim company name
+
+
+
+
+
+
+
+
 
 
 

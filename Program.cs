@@ -4,10 +4,17 @@ namespace AutoDialer
 {
     class Program
     {
+        public enum details
+        {
+            companyName,
+            phoneNumber,
+            phoneType
+        }
 
-
-       static void Main(string[] args)
+        private static char[] singleDigitNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        static void Main(string[] args)
         { // empty space is to prevent merge conflicts on the same line
+
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
             phoneList[1] = new CellPhone("Curtis Manufacturing", "(603) 532-4123", "2");
@@ -20,13 +27,7 @@ namespace AutoDialer
             phoneList[8] = new CellPhone("Hazard Comm Specialists", "(407)783-6641", "2");
             phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409", "2");
 
-
-            // need explanation for user here
-            for (int i = 0; i < phoneList.Length; i++)
-            { 
-                Print(phoneList[i]);
-                phoneList[i] = null;
-            }
+            Print(phoneList);
 
 
             string companyName;
@@ -83,12 +84,38 @@ namespace AutoDialer
 
         }
         // print function
-        public static void Print(Phone phone)
+        public static void Print(Phone[] phoneList)
         {
-                Console.WriteLine(phone.Dial());
+            for (int i = 0; i < phoneList.Length; i++)
+            {
+                if (!(phoneList[i] == null))
+                { Console.WriteLine(phoneList[i].Dial()); }
+                phoneList[i] = null;
+            }
         }
 
-
+        // interperet input
+        public static string numberBuilder(string phoneNumber)
+        {
+            
+            int earliestNum = FindFirstNumber(phoneNumber);
+            phoneNumber.Trim();
+            string areaCode = "(" + phoneNumber.Substring(earliestNum, 3) + ")";
+            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            //                                   \\
+            earliestNum = FindFirstNumber(phoneNumber);
+            string threeDigitSet = phoneNumber.Substring(earliestNum, 3);
+            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            //                                  \\
+            earliestNum = FindFirstNumber(phoneNumber);
+            string fourDigitSet = phoneNumber.Substring(earliestNum, 4);
+            return areaCode + " " + threeDigitSet + "-" + fourDigitSet;
+        }
+        private static int FindFirstNumber(string input)
+        {
+            int earliestNum = input.IndexOfAny(singleDigitNumbers); 
+            return earliestNum;
+        }
 
 
 

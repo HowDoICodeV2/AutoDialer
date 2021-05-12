@@ -27,13 +27,8 @@ namespace AutoDialer
             phoneList[8] = new CellPhone("Hazard Comm Specialists", "(407)783-6641", "2");
             phoneList[9] = new CellPhone("Komfort Support", "(714) 472-4409", "2");
 
+            Print(phoneList);
 
-            // need explanation for user here
-            for (int i = 0; i < phoneList.Length; i++)
-            {
-                Print(phoneList[i]);
-                phoneList[i] = null;
-            }
 
 
 
@@ -64,9 +59,14 @@ namespace AutoDialer
 
         }
         // print function
-        public static void Print(Phone phone)
+        public static void Print(Phone[] phoneList)
         {
-                Console.WriteLine(phone.Dial());
+            for (int i = 0; i < phoneList.Length; i++)
+            {
+                if (!(phoneList[i] == null))
+                { Console.WriteLine(phoneList[i].Dial()); }
+                phoneList[i] = null;
+            }
         }
 
         // interperet input

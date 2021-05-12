@@ -38,7 +38,7 @@ namespace AutoDialer
 
 
 
-
+            // at some point after user input we need to trim company name
 
 
 
@@ -53,18 +53,11 @@ namespace AutoDialer
         {
                 Console.WriteLine(phone.Dial());
         }
+
         // interperet input
-        public static string[] InterperetInput(string[] input)
+        public static string numberBuilder(string phoneNumber)
         {
-            string[] detailArray = new string[2];
-
-            string companyName = input[0];
-            companyName.Trim();
-            detailArray[0] = companyName;
-
             
-            string phoneNumber = input[1];
-            //                          \\
             int earliestNum = FindFirstNumber(phoneNumber);
             phoneNumber.Trim();
             string areaCode = "(" + phoneNumber.Substring(earliestNum, 3) + ")";
@@ -72,15 +65,11 @@ namespace AutoDialer
             //                                   \\
             earliestNum = FindFirstNumber(phoneNumber);
             string threeDigitSet = phoneNumber.Substring(earliestNum, 3);
-            phoneNumber = phoneNumber.Remove(0, earliestNum+3);
+            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
             //                                  \\
             earliestNum = FindFirstNumber(phoneNumber);
             string fourDigitSet = phoneNumber.Substring(earliestNum, 4);
-            detailArray[1] = areaCode + " " + threeDigitSet + "-" + fourDigitSet;
-
-
-
-            return detailArray;
+            return areaCode + " " + threeDigitSet + "-" + fourDigitSet;
         }
         private static int FindFirstNumber(string input)
         {

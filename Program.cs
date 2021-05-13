@@ -31,10 +31,10 @@ namespace AutoDialer
                     ConsoleKeyInfo keypress = new ConsoleKeyInfo();
                     Console.WriteLine();
                     Thread.Sleep(100);
+                    Console.WriteLine("Welcome to the Auto Dialer program");
 
                     while (keypress.Key != ConsoleKey.Y || keypress.Key != ConsoleKey.N)
                     {
-                        Console.WriteLine("Welcome to the Auto Dialer program");
                         Console.WriteLine("Want to add new numbers, (y)es or (n)o?");
                         //string numbertype = Console.ReadLine();
                         keypress = Console.ReadKey();
@@ -43,13 +43,12 @@ namespace AutoDialer
                             Console.Clear();
                             string companyName = CompanyName();
                             string phoneNumber = FullNumber();
-                            bool phoneType = NumberType();
-                            if (phoneType)
+                            bool numberType = NumberType();
+                            if (numberType)
                             { phoneList[i] = new CellPhone(companyName, phoneNumber, "1"); }
                             else
                             { phoneList[i] = new HomePhone(companyName, phoneNumber, "2"); }
                         }
-
                         else if (keypress.Key == ConsoleKey.N)
                         {
                             Console.Clear();
@@ -58,7 +57,6 @@ namespace AutoDialer
                             Console.ReadKey();
                             return;
                         }
-
                         else
                         {
                             Console.Clear();
@@ -66,8 +64,6 @@ namespace AutoDialer
                         }
                     }
                     Print(phoneList);
-
-
                 }
                 Console.WriteLine();
             }
@@ -91,21 +87,23 @@ namespace AutoDialer
             {
                 Console.WriteLine("Please enter the number you wish to dial: ");
                 fullNumber = Console.ReadLine();
-                fullNumber = NumberBuilder(fullNumber);
             }
+            fullNumber = NumberBuilder(fullNumber);
+
             return fullNumber;
         }
         public static bool NumberType()
         {
-            string numberType = "0";
+            //string numberType = "0";
 
-            ConsoleKeyInfo keypress = Console.ReadKey();
+            ConsoleKeyInfo keypress = new ConsoleKeyInfo();
             while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
             {
                 Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
                 keypress = Console.ReadKey();
+                Console.WriteLine();
 
-                numberType = Console.ReadLine();
+                //numberType = Console.ReadLine();
                 if (keypress.Key == ConsoleKey.D1)
                 { return true; }
                 else if (keypress.Key == ConsoleKey.D2)

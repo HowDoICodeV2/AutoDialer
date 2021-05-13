@@ -44,10 +44,10 @@ namespace AutoDialer
                             string companyName = CompanyName();
                             string phoneNumber = FullNumber();
                             bool numberType = NumberType();
-                            if (numberType)
-                            { phoneList[i] = new CellPhone(companyName, phoneNumber, "1"); }
+                            if (!numberType)
+                            { phoneList[i] = new CellPhone(companyName, phoneNumber, "2"); }
                             else
-                            { phoneList[i] = new HomePhone(companyName, phoneNumber, "2"); }
+                            { phoneList[i] = new HomePhone(companyName, phoneNumber, "1"); }
                         }
                         else if (keypress.Key == ConsoleKey.N)
                         {

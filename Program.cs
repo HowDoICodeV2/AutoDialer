@@ -23,6 +23,7 @@ namespace AutoDialer
 
             Print(phoneList);
 
+
         Restart:
             for (int i = 0; i < phoneList.Length; i++)
             {
@@ -78,6 +79,48 @@ namespace AutoDialer
         }
 
 
+
+           
+        
+        public string CompanyName()
+        {
+            string companyName = "";
+
+            Console.WriteLine("Welcome to the Auto Dialer program");
+            Console.WriteLine("Please enter the name of the business you wish to dial: ");
+            while (companyName.Length != 0)
+            { companyName = Console.ReadLine(); }
+
+            return companyName;
+        }
+        public string FullNumber()
+        {
+            string fullNumber = "";
+
+            Console.WriteLine("Please enter the number you wish to dial: ");
+            while (StringtoNumber(fullNumber).Length != 10)
+            {
+                Console.WriteLine("Please enter the number you wish to dial: ");
+                fullNumber = Console.ReadLine();
+            }
+            return fullNumber;
+        }
+        public string NumberType()
+        {
+            string numberType = "0";
+
+            Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
+            numberType = Console.ReadLine();
+            if (numberType != "1" || numberType != "2")
+            {
+                Console.Clear();
+                Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
+                NumberType();
+            }
+            
+            return numberType;
+        }
+
         // print function
         public static void Print(Phone[] phoneList)
         {
@@ -120,44 +163,5 @@ namespace AutoDialer
             return builtNumber;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //        while (StringtoNumber(fullNumber).Length != 10)
-                //{
-                //    Console.WriteLine("Please enter the number you wish to dial: ");
-                //    fullNumber = Console.ReadLine();
-                    
-                //}
-
-
-
-
-
-
+  }
 }
-}
-
-
-
-// additional commentary: I would like to give 40 lines for each function, then we remove the empty space after the final merges to main

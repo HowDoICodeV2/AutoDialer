@@ -39,21 +39,25 @@ namespace AutoDialer
         }
         public string CompanyName()
         {
-            string companyName;
+            string companyName = "";
 
             Console.WriteLine("Welcome to the Auto Dialer program");
             Console.WriteLine("Please enter the name of the business you wish to dial: ");
-            companyName = Console.ReadLine();
+            while (companyName.Length != 0)
+            { companyName = Console.ReadLine(); }
 
             return companyName;
         }
         public string FullNumber()
         {
-            string fullNumber;
+            string fullNumber = "";
 
             Console.WriteLine("Please enter the number you wish to dial: ");
-            fullNumber = Console.ReadLine();
-
+            while (StringtoNumber(fullNumber).Length != 10)
+            {
+                Console.WriteLine("Please enter the number you wish to dial: ");
+                fullNumber = Console.ReadLine();
+            }
             return fullNumber;
         }
         public string PhoneType()

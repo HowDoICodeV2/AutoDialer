@@ -8,9 +8,9 @@ namespace AutoDialer
 {
     public class Phone
     {
-        private string _phoneNumber;
-        private string _companyName;
-        private string _phoneType;
+        protected string _phoneNumber;
+        protected string _companyName;
+        protected string _phoneType;
 
 
 

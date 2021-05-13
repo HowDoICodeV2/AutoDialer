@@ -1,19 +1,14 @@
 ﻿using System;
+using System.Threading;
 
 namespace AutoDialer
 {
     class Program
     {
-        public enum details
-        {
-            companyName,
-            phoneNumber,
-            phoneType
-        }
 
-        private static char[] singleDigitNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private static char[] singleDigitNumbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static void Main(string[] args)
-        { // empty space is to prevent merge conflicts on the same line
+        { 
 
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
@@ -29,60 +24,100 @@ namespace AutoDialer
 
             Print(phoneList);
 
+            while (true)
+            {
+                
+                    ConsoleKeyInfo keypress = new ConsoleKeyInfo();
+                    Console.WriteLine();
+                    Thread.Sleep(100);
+                    Console.WriteLine("Welcome to the Auto Dialer program");
 
-            string companyName;
-            string numberType;
-            string fullNumber;
+                    while (keypress.Key != ConsoleKey.Y || keypress.Key != ConsoleKey.N)
+                    {
+                        for (int i = 0; i < phoneList.Length; i++)
+                        {
+                            Console.WriteLine("Want to add new numbers, (y)es or (n)o?");
+                            //string numbertype = Console.ReadLine();
+                            keypress = Console.ReadKey();
+                            if (keypress.Key == ConsoleKey.Y)
+                            {
+                                Console.Clear();
+                                string companyName = CompanyName();
+                                string phoneNumber = FullNumber();
+                                bool numberType = NumberType();
+                                if (!numberType)
+                                { phoneList[i] = new CellPhone(companyName, phoneNumber, "2"); }
+                                else
+                                { phoneList[i] = new HomePhone(companyName, phoneNumber, "1"); }
+                            }
+                            else if (keypress.Key == ConsoleKey.N)
+                            {
+                                Console.Clear();
+                                Print(phoneList);
+                                Console.WriteLine("Press any key to exit.");
+                                Console.ReadKey();
+                                return;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Please enter the character Y or the character N to proceed to scamming.");
+                            }
+                        }
+                    Print(phoneList);
+                    }
+                Console.WriteLine();
+            }
+        }
+       
+        public static string CompanyName()
+        {
+            string companyName = "";
 
-            ConsoleKeyInfo keypress = Console.ReadKey();
-            Console.WriteLine("Welcome to the Auto Dialer program");
             Console.WriteLine("Please enter the name of the business you wish to dial: ");
-            companyName = Console.ReadLine();
-            Console.WriteLine("Please enter the number you wish to dial: ");
-            fullNumber = Console.ReadLine();
-            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
+            while (companyName.Length == 0)
+            { companyName = Console.ReadLine(); }
+
+            return companyName;
+        }
+        public static string FullNumber()
+        {
+            string fullNumber = "";
+
+            while (StringtoNumber(fullNumber).Length != 10)
+            {
+                Console.WriteLine("Please enter the number you wish to dial: ");
+                fullNumber = Console.ReadLine();
+            }
+            fullNumber = NumberBuilder(fullNumber);
+
+            return fullNumber;
+        }
+        public static bool NumberType()
+        {
+            //string numberType = "0";
+
+            ConsoleKeyInfo keypress = new ConsoleKeyInfo();
+            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2 || keypress.Key != ConsoleKey.NumPad1 || keypress.Key != ConsoleKey.NumPad2)
             {
                 Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
                 keypress = Console.ReadKey();
+                Console.WriteLine();
 
-                numberType = Console.ReadLine();
-                if (keypress.Key == ConsoleKey.D1)
-                {
-                    phoneList[0] = new HomePhone(companyName, fullNumber, numberType);
-                    break;
-                }
-                else if (keypress.Key == ConsoleKey.D2)
-                {
-                    phoneList[0] = new CellPhone(companyName, fullNumber, numberType);
-                    break;
-                }
+                //numberType = Console.ReadLine();
+                if (keypress.Key == ConsoleKey.D1 || keypress.Key == ConsoleKey.NumPad1)
+                { return true; }
+                else if (keypress.Key == ConsoleKey.D2 || keypress.Key == ConsoleKey.NumPad2)
+                { return false; }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
                 }
             }
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return false;
         }
+
         // print function
         public static void Print(Phone[] phoneList)
         {
@@ -95,61 +130,47 @@ namespace AutoDialer
         }
 
         // interperet input
-        public static string numberBuilder(string phoneNumber)
+        public static string NumberBuilder(string phoneNumber)
         {
-            
-            int earliestNum = FindFirstNumber(phoneNumber);
-            phoneNumber.Trim();
-            string areaCode = "(" + phoneNumber.Substring(earliestNum, 3) + ")";
-            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            phoneNumber = StringtoNumber(phoneNumber);
+            string areaCode = "(" + phoneNumber.Substring(0, 3) + ")";
             //                                   \\
-            earliestNum = FindFirstNumber(phoneNumber);
-            string threeDigitSet = phoneNumber.Substring(earliestNum, 3);
-            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            string threeDigitSet = phoneNumber.Substring(3, 3);
             //                                  \\
-            earliestNum = FindFirstNumber(phoneNumber);
-            string fourDigitSet = phoneNumber.Substring(earliestNum, 4);
+            string fourDigitSet = phoneNumber.Substring(6, 4);
             return areaCode + " " + threeDigitSet + "-" + fourDigitSet;
         }
-        private static int FindFirstNumber(string input)
+
+        private static string StringtoNumber(string phoneNumber)
         {
-            int earliestNum = input.IndexOfAny(singleDigitNumbers); 
-            return earliestNum;
+            int earliestNum;
+            string builtNumber = "";
+            while(phoneNumber.Length != 0)
+            {
+
+                earliestNum = phoneNumber.IndexOfAny(singleDigitNumbers);
+                if(earliestNum == -1)
+                {
+                    return builtNumber;
+                }
+                phoneNumber = phoneNumber.Remove(0, earliestNum);
+                builtNumber = builtNumber + phoneNumber.Substring(0, 1);
+                phoneNumber = phoneNumber.Remove(0, 1);
+            }
+            return builtNumber;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+  }
 }
 
 
 
-// additional commentary: I would like to give 40 lines for each function, then we remove the empty space after the final merges to main
+
+
+
+
+
+
+
+
+

@@ -8,13 +8,13 @@ namespace AutoDialer
 {
     public class Phone
     {
-        private string _phoneNumber;
-        private string _companyName;
-        private string _phoneType;
+        protected string _phoneNumber;
+        protected string _companyName;
+        protected string _phoneType;
 
 
 
-        public Phone(string phoneNumber, string companyName, string phoneType)
+        public Phone(string companyName, string phoneNumber, string phoneType)
         {
             _phoneNumber    =  phoneNumber;
             _companyName    =  companyName;

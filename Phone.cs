@@ -14,7 +14,7 @@ namespace AutoDialer
 
 
 
-        public Phone(string phoneNumber, string companyName, string phoneType)
+        public Phone(string companyName, string phoneNumber, string phoneType)
         {
             _phoneNumber    =  phoneNumber;
             _companyName    =  companyName;

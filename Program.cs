@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace AutoDialer
 {
@@ -27,11 +28,13 @@ namespace AutoDialer
             {
                 for (int i = 0; i < phoneList.Length; i++)
                 {
-                    ConsoleKeyInfo keypress = Console.ReadKey();
+                    ConsoleKeyInfo keypress = new ConsoleKeyInfo();
+                    Console.WriteLine();
+                    Thread.Sleep(100);
 
                     while (keypress.Key != ConsoleKey.Y || keypress.Key != ConsoleKey.N)
                     {
-
+                        Console.WriteLine("Welcome to the Auto Dialer program");
                         Console.WriteLine("Want to add new numbers, (y)es or (n)o?");
                         //string numbertype = Console.ReadLine();
                         keypress = Console.ReadKey();
@@ -62,36 +65,18 @@ namespace AutoDialer
                             Console.WriteLine("Please enter the character Y or the character N to proceed to scamming.");
                         }
                     }
+                    Print(phoneList);
 
 
                 }
-                Print(phoneList);
+                Console.WriteLine();
             }
-            
-
-
-
-
-
-
-
-
-
-
-
-        
-
         }
-
-
-
-           
-        
+       
         public static string CompanyName()
         {
             string companyName = "";
 
-            Console.WriteLine("Welcome to the Auto Dialer program");
             Console.WriteLine("Please enter the name of the business you wish to dial: ");
             while (companyName.Length == 0)
             { companyName = Console.ReadLine(); }

@@ -15,7 +15,7 @@ namespace AutoDialer
         }
         public override string Dial()
         {
-            return "1+ " + base.Dial();
+            return "1+" + base.Dial();
         }
     }
 }

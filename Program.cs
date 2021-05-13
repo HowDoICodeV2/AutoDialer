@@ -98,14 +98,39 @@ namespace AutoDialer
             Print(phoneList);
             goto Restart;
 
+            string companyName;
+            string numberType;
+            string fullNumber;
 
+            ConsoleKeyInfo keypress = Console.ReadKey();
+            Console.WriteLine("Welcome to the Auto Dialer program");
+            Console.WriteLine("Please enter the name of the business you wish to dial: ");
+            companyName = Console.ReadLine();
+            Console.WriteLine("Please enter the number you wish to dial: ");
+            fullNumber = Console.ReadLine();
+            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
+            {
+                Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
+                keypress = Console.ReadKey();
 
-
-
-
-
-
-
+                numberType = Console.ReadLine();
+                if (keypress.Key == ConsoleKey.D1)
+                {
+                    phoneList[0] = new HomePhone(companyName, fullNumber, numberType);
+                    break;
+                }
+                else if (keypress.Key == ConsoleKey.D2)
+                {
+                    phoneList[0] = new CellPhone(companyName, fullNumber, numberType);
+                    break;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
+                }
+            }
+            
 
 
 

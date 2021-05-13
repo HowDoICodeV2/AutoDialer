@@ -98,16 +98,16 @@ namespace AutoDialer
             //string numberType = "0";
 
             ConsoleKeyInfo keypress = new ConsoleKeyInfo();
-            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
+            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2 || keypress.Key != ConsoleKey.NumPad1 || keypress.Key != ConsoleKey.NumPad2)
             {
                 Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
                 keypress = Console.ReadKey();
                 Console.WriteLine();
 
                 //numberType = Console.ReadLine();
-                if (keypress.Key == ConsoleKey.D1)
+                if (keypress.Key == ConsoleKey.D1 || keypress.Key == ConsoleKey.NumPad1)
                 { return true; }
-                else if (keypress.Key == ConsoleKey.D2)
+                else if (keypress.Key == ConsoleKey.D2 || keypress.Key == ConsoleKey.NumPad2)
                 { return false; }
                 else
                 {
@@ -162,3 +162,15 @@ namespace AutoDialer
 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+

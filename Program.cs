@@ -38,7 +38,9 @@ namespace AutoDialer
                     if (keypress.Key == ConsoleKey.Y)
                     {
                         Console.Clear();
-                         // enter name of proper function
+                        string companyName = CompanyName();
+                        string phoneNumber = FullNumber();
+                        // bool phoneType = 
                     }
 
                     else if (keypress.Key == ConsoleKey.N)
@@ -82,7 +84,7 @@ namespace AutoDialer
 
            
         
-        public string CompanyName()
+        public static string CompanyName()
         {
             string companyName = "";
 
@@ -93,11 +95,10 @@ namespace AutoDialer
 
             return companyName;
         }
-        public string FullNumber()
+        public static string FullNumber()
         {
             string fullNumber = "";
 
-            Console.WriteLine("Please enter the number you wish to dial: ");
             while (StringtoNumber(fullNumber).Length != 10)
             {
                 Console.WriteLine("Please enter the number you wish to dial: ");
@@ -105,21 +106,21 @@ namespace AutoDialer
             }
             return fullNumber;
         }
-        public string NumberType()
-        {
-            string numberType = "0";
+        //public static string NumberType()
+        //{
+        //    string numberType = "0";
 
-            Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
-            numberType = Console.ReadLine();
-            if (numberType != "1" || numberType != "2")
-            {
-                Console.Clear();
-                Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
-                NumberType();
-            }
+        //    Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
+        //    numberType = Console.ReadLine();
+        //    if (numberType != "1" || numberType != "2")
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
+        //        NumberType();
+        //    }
             
-            return numberType;
-        }
+        //    return numberType;
+        //}
 
         // print function
         public static void Print(Phone[] phoneList)

@@ -56,7 +56,7 @@ namespace AutoDialer
 
             return fullNumber;
         }
-        public string PhoneType()
+        public string NumberType()
         {
             string numberType = "0";
 
@@ -66,7 +66,7 @@ namespace AutoDialer
             {
                 Console.Clear();
                 Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
-                PhoneType();
+                NumberType();
             }
             
             return numberType;

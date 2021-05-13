@@ -26,8 +26,7 @@ namespace AutoDialer
 
             while (true)
             {
-                for (int i = 0; i < phoneList.Length; i++)
-                {
+                
                     ConsoleKeyInfo keypress = new ConsoleKeyInfo();
                     Console.WriteLine();
                     Thread.Sleep(100);
@@ -35,36 +34,38 @@ namespace AutoDialer
 
                     while (keypress.Key != ConsoleKey.Y || keypress.Key != ConsoleKey.N)
                     {
-                        Console.WriteLine("Want to add new numbers, (y)es or (n)o?");
-                        //string numbertype = Console.ReadLine();
-                        keypress = Console.ReadKey();
-                        if (keypress.Key == ConsoleKey.Y)
+                        for (int i = 0; i < phoneList.Length; i++)
                         {
-                            Console.Clear();
-                            string companyName = CompanyName();
-                            string phoneNumber = FullNumber();
-                            bool numberType = NumberType();
-                            if (!numberType)
-                            { phoneList[i] = new CellPhone(companyName, phoneNumber, "2"); }
+                            Console.WriteLine("Want to add new numbers, (y)es or (n)o?");
+                            //string numbertype = Console.ReadLine();
+                            keypress = Console.ReadKey();
+                            if (keypress.Key == ConsoleKey.Y)
+                            {
+                                Console.Clear();
+                                string companyName = CompanyName();
+                                string phoneNumber = FullNumber();
+                                bool numberType = NumberType();
+                                if (!numberType)
+                                { phoneList[i] = new CellPhone(companyName, phoneNumber, "2"); }
+                                else
+                                { phoneList[i] = new HomePhone(companyName, phoneNumber, "1"); }
+                            }
+                            else if (keypress.Key == ConsoleKey.N)
+                            {
+                                Console.Clear();
+                                Print(phoneList);
+                                Console.WriteLine("Press any key to exit.");
+                                Console.ReadKey();
+                                return;
+                            }
                             else
-                            { phoneList[i] = new HomePhone(companyName, phoneNumber, "1"); }
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Please enter the character Y or the character N to proceed to scamming.");
+                            }
                         }
-                        else if (keypress.Key == ConsoleKey.N)
-                        {
-                            Console.Clear();
-                            Print(phoneList);
-                            Console.WriteLine("Press any key to exit.");
-                            Console.ReadKey();
-                            return;
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Please enter the character Y or the character N to proceed to scamming.");
-                        }
-                    }
                     Print(phoneList);
-                }
+                    }
                 Console.WriteLine();
             }
         }

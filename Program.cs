@@ -4,16 +4,10 @@ namespace AutoDialer
 {
     class Program
     {
-        public enum details
-        {
-            companyName,
-            phoneNumber,
-            phoneType
-        }
 
-        private static char[] singleDigitNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private static char[] singleDigitNumbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static void Main(string[] args)
-        { // empty space is to prevent merge conflicts on the same line
+        { 
 
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
@@ -29,14 +23,65 @@ namespace AutoDialer
 
             Print(phoneList);
 
-            // need explanation for user here
+
+        Restart:
             for (int i = 0; i < phoneList.Length; i++)
-            { 
-                Print(phoneList[i]);
-                phoneList[i] = null;
+            {
+                ConsoleKeyInfo keypress = Console.ReadKey();
+
+                while (keypress.Key != ConsoleKey.Y || keypress.Key != ConsoleKey.N)
+                {
+
+                    Console.WriteLine("Want to add new numbers, (y)es or (n)o?");
+                    //string numbertype = Console.ReadLine();
+                    keypress = Console.ReadKey();
+                    if (keypress.Key == ConsoleKey.Y)
+                    {
+                        Console.Clear();
+                         // enter name of proper function
+                    }
+
+                    else if (keypress.Key == ConsoleKey.N)
+                    {
+                        Console.Clear();
+                        Print(phoneList);
+                        Console.WriteLine("Press any key to exit.");
+                        Console.ReadKey();
+                        return;
+                    }
+
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Please enter the character Y or the character N to proceed to scamming.");
+                    }
+                }
+
+
             }
-           
+            Print(phoneList);
+            goto Restart;
+
+            
+
+
+
+
+
+
+
+
+
+
+
+        
+
         }
+
+
+
+           
+        
         public string CompanyName()
         {
             string companyName = "";
@@ -75,6 +120,7 @@ namespace AutoDialer
             
             return numberType;
         }
+
         // print function
         public static void Print(Phone[] phoneList)
         {
@@ -89,59 +135,33 @@ namespace AutoDialer
         // interperet input
         public static string numberBuilder(string phoneNumber)
         {
-            
-            int earliestNum = FindFirstNumber(phoneNumber);
-            phoneNumber.Trim();
-            string areaCode = "(" + phoneNumber.Substring(earliestNum, 3) + ")";
-            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            phoneNumber = StringtoNumber(phoneNumber);
+            string areaCode = "(" + phoneNumber.Substring(0, 3) + ")";
             //                                   \\
-            earliestNum = FindFirstNumber(phoneNumber);
-            string threeDigitSet = phoneNumber.Substring(earliestNum, 3);
-            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            string threeDigitSet = phoneNumber.Substring(3, 3);
             //                                  \\
-            earliestNum = FindFirstNumber(phoneNumber);
-            string fourDigitSet = phoneNumber.Substring(earliestNum, 4);
+            string fourDigitSet = phoneNumber.Substring(6, 4);
             return areaCode + " " + threeDigitSet + "-" + fourDigitSet;
         }
-        private static int FindFirstNumber(string input)
+
+        private static string StringtoNumber(string phoneNumber)
         {
-            int earliestNum = input.IndexOfAny(singleDigitNumbers); 
-            return earliestNum;
+            int earliestNum;
+            string builtNumber = "";
+            while(phoneNumber.Length != 0)
+            {
+
+                earliestNum = phoneNumber.IndexOfAny(singleDigitNumbers);
+                if(earliestNum == -1)
+                {
+                    return builtNumber;
+                }
+                phoneNumber = phoneNumber.Remove(0, earliestNum);
+                builtNumber = builtNumber + phoneNumber.Substring(0, 1);
+                phoneNumber = phoneNumber.Remove(0, 1);
+            }
+            return builtNumber;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+  }
 }
-
-
-
-// additional commentary: I would like to give 40 lines for each function, then we remove the empty space after the final merges to main

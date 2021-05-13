@@ -24,7 +24,6 @@ namespace AutoDialer
             Print(phoneList);
 
 
-        Restart:
             for (int i = 0; i < phoneList.Length; i++)
             {
                 ConsoleKeyInfo keypress = Console.ReadKey();
@@ -40,7 +39,11 @@ namespace AutoDialer
                         Console.Clear();
                         string companyName = CompanyName();
                         string phoneNumber = FullNumber();
-                        // bool phoneType = 
+                        bool phoneType = NumberType();
+                        if (phoneType)
+                        { phoneList[i] = new CellPhone(companyName, phoneNumber, "1"); }
+                        else
+                        { phoneList[i] = new HomePhone(companyName, phoneNumber, "2"); }
                     }
 
                     else if (keypress.Key == ConsoleKey.N)
@@ -106,21 +109,29 @@ namespace AutoDialer
             }
             return fullNumber;
         }
-        //public static string NumberType()
-        //{
-        //    string numberType = "0";
+        public static bool NumberType()
+        {
+            string numberType = "0";
 
-        //    Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
-        //    numberType = Console.ReadLine();
-        //    if (numberType != "1" || numberType != "2")
-        //    {
-        //        Console.Clear();
-        //        Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
-        //        NumberType();
-        //    }
-            
-        //    return numberType;
-        //}
+            ConsoleKeyInfo keypress = Console.ReadKey();
+            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
+            {
+                Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
+                keypress = Console.ReadKey();
+
+                numberType = Console.ReadLine();
+                if (keypress.Key == ConsoleKey.D1)
+                { return true; }
+                else if (keypress.Key == ConsoleKey.D2)
+                { return false; }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
+                }
+            }
+            return false;
+        }
 
         // print function
         public static void Print(Phone[] phoneList)

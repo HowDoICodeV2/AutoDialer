@@ -7,7 +7,7 @@ namespace AutoDialer
 
         private static char[] singleDigitNumbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static void Main(string[] args)
-        { // empty space is to prevent merge conflicts on the same line
+        { 
 
             Phone[] phoneList = new Phone[10];
             phoneList[0] = new HomePhone("CompuTest", "(303) 985-5060", "1");
@@ -37,7 +37,7 @@ namespace AutoDialer
                     if (keypress.Key == ConsoleKey.Y)
                     {
                         Console.Clear();
-                        goto Continue;
+                         // enter name of proper function
                     }
 
                     else if (keypress.Key == ConsoleKey.N)
@@ -56,80 +56,11 @@ namespace AutoDialer
                     }
                 }
 
-            Continue:
-                string companyName;
-                string numberType = "";
-                string fullNumber = "";
 
-
-                Console.WriteLine("Welcome to the Auto scam-Dialer program");
-                Console.WriteLine("Please enter the name of the business you wish to dial: ");
-                companyName = Console.ReadLine();
-                while (fullNumber.Length < 10)
-                {
-                    Console.WriteLine("Please enter the number you wish to dial: ");
-                    fullNumber = Console.ReadLine();
-                    
-                }
-                    fullNumber = numberBuilder(fullNumber);
-                while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
-                {
-                    Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
-                    keypress = Console.ReadKey();
-
-                    numberType = Console.ReadLine();
-                    if (keypress.Key == ConsoleKey.D1)
-                    {
-                        phoneList[0] = new HomePhone(companyName, fullNumber, numberType);
-                        break;
-                    }
-                    else if (keypress.Key == ConsoleKey.D2)
-                    {
-                        phoneList[0] = new CellPhone(companyName, fullNumber, numberType);
-                        break;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
-                    }
-                }
             }
             Print(phoneList);
             goto Restart;
 
-            string companyName;
-            string numberType;
-            string fullNumber;
-
-            ConsoleKeyInfo keypress = Console.ReadKey();
-            Console.WriteLine("Welcome to the Auto Dialer program");
-            Console.WriteLine("Please enter the name of the business you wish to dial: ");
-            companyName = Console.ReadLine();
-            Console.WriteLine("Please enter the number you wish to dial: ");
-            fullNumber = Console.ReadLine();
-            while (keypress.Key != ConsoleKey.D1 || keypress.Key != ConsoleKey.D2)
-            {
-                Console.WriteLine("Is this number a Land Line (1) or a Cell Phone (2): ");
-                keypress = Console.ReadKey();
-
-                numberType = Console.ReadLine();
-                if (keypress.Key == ConsoleKey.D1)
-                {
-                    phoneList[0] = new HomePhone(companyName, fullNumber, numberType);
-                    break;
-                }
-                else if (keypress.Key == ConsoleKey.D2)
-                {
-                    phoneList[0] = new CellPhone(companyName, fullNumber, numberType);
-                    break;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Hey... There are two options here... pick (1) for Land Line or (2) for Cell Phone.");
-                }
-            }
             
 
 
@@ -161,34 +92,30 @@ namespace AutoDialer
         // interperet input
         public static string numberBuilder(string phoneNumber)
         {
-
-            int earliestNum = FindFirstNumber(phoneNumber);
-            phoneNumber.Trim();
-            string areaCode = "(" + phoneNumber.Substring(earliestNum, 3) + ")";
-            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            phoneNumber = StringtoNumber(phoneNumber);
+            string areaCode = "(" + phoneNumber.Substring(0, 3) + ")";
             //                                   \\
-            earliestNum = FindFirstNumber(phoneNumber);
-            string threeDigitSet = phoneNumber.Substring(earliestNum, 3);
-            phoneNumber = phoneNumber.Remove(0, earliestNum + 3);
+            string threeDigitSet = phoneNumber.Substring(3, 3);
             //                                  \\
-            earliestNum = FindFirstNumber(phoneNumber);
-            string fourDigitSet = phoneNumber.Substring(earliestNum, 4);
+            string fourDigitSet = phoneNumber.Substring(6, 4);
             return areaCode + " " + threeDigitSet + "-" + fourDigitSet;
         }
-        private static int FindFirstNumber(string input)
-        {
-            int earliestNum = input.IndexOfAny(singleDigitNumbers);
-            return earliestNum;
-        }
+
         private static string StringtoNumber(string phoneNumber)
         {
             int earliestNum;
             string builtNumber = "";
-            for(int i = 0; i < phoneNumber.Length; i++)
+            while(phoneNumber.Length != 0)
             {
-                earliestNum = FindFirstNumber(phoneNumber);
+
+                earliestNum = phoneNumber.IndexOfAny(singleDigitNumbers);
+                if(earliestNum == -1)
+                {
+                    return builtNumber;
+                }
                 phoneNumber = phoneNumber.Remove(0, earliestNum);
-                builtNumber = builtNumber + phoneNumber.Substring(earliestNum, 1);
+                builtNumber = builtNumber + phoneNumber.Substring(0, 1);
+                phoneNumber = phoneNumber.Remove(0, 1);
             }
             return builtNumber;
         }
@@ -216,14 +143,19 @@ namespace AutoDialer
 
 
 
+                //        while (StringtoNumber(fullNumber).Length != 10)
+                //{
+                //    Console.WriteLine("Please enter the number you wish to dial: ");
+                //    fullNumber = Console.ReadLine();
+                    
+                //}
 
 
 
 
 
 
-
-    }
+}
 }
 
 
